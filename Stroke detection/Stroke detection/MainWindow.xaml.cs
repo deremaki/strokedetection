@@ -117,11 +117,6 @@ namespace Stroke_detection
         private static BitmapSource ToBitmapImage(ushort[] imageData, int width, int height, double windowWidth,
         double windowCentre)
         {
-            int rawStride = width * 2;
-
-            int sizeImg = width * height;
-            int sizeImg3 = sizeImg * 1;
-            var imagePixels16 = new byte[sizeImg3];
             byte[] lut16 = new byte[65536];
 
             int winMax = Convert.ToInt32(windowCentre + 0.5 * windowWidth);
@@ -143,10 +138,6 @@ namespace Stroke_detection
                 }
             }
 
-            int pixelSize = 1;
-            int j, j1;
-            byte b;
-
             List<byte> list = new List<byte>();
 
             foreach (var pixel in imageData)
@@ -158,7 +149,7 @@ namespace Stroke_detection
 
             return BitmapSource.Create(width, height,
                     300, 300, PixelFormats.Gray8, BitmapPalettes.Gray256,
-                    buffer8Bit, rawStride / 2);
+                    buffer8Bit, width);
         }
 
     }
