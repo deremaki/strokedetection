@@ -131,8 +131,10 @@ namespace Stroke_detection
         {
             if (ImageBox.Source == null)
                 return;
-
             
+            //processing image
+
+            new BitmapPreview(Layers[(int)LayerSlider.Value]).Show();
         }
 
         private void LayerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

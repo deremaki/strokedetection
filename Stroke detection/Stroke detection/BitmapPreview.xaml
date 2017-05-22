@@ -1,0 +1,12 @@
+﻿<Window x:Class="Stroke_detection.BitmapPreview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stroke_detection"
+        mc:Ignorable="d"
+        Title="BitmapPreview" Height="400" Width="300">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Image x:Name="ImageBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    </Grid>
+</Window>
