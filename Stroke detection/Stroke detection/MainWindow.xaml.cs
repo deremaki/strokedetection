@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DicomImageViewer;
 using Microsoft.Win32;
 
@@ -42,12 +32,12 @@ namespace Stroke_detection
             {
                 if (ofd.FileName.Length > 0)
                 {
-                    ImageBox.Source = ReadAndDisplayDicomFile(ofd.FileName, ofd.SafeFileName);
+                    ImageBox.Source = ReadDicomFile(ofd.FileName, ofd.SafeFileName);
                 }
             }
         }
 
-        private BitmapSource ReadAndDisplayDicomFile(string fileName, string fileNameOnly)
+        private BitmapSource ReadDicomFile(string fileName, string fileNameOnly)
         {
             dd.DicomFileName = fileName;
 
@@ -89,7 +79,7 @@ namespace Stroke_detection
                         winCentre = (maxPixelValue + minPixelValue) / 2;
                     }
 
-                    return ToBitmapImage(pixels16.ToArray(), imageWidth, imageHeight, winWidth, winCentre);
+                    return BitmapHelper.ToBitmapImage(pixels16.ToArray(), imageWidth, imageHeight, winWidth, winCentre);
                 }
 
                 else
@@ -114,43 +104,7 @@ namespace Stroke_detection
             return null;
         }
 
-        private static BitmapSource ToBitmapImage(ushort[] imageData, int width, int height, double windowWidth,
-        double windowCentre)
-        {
-            byte[] lut16 = new byte[65536];
-
-            int winMax = Convert.ToInt32(windowCentre + 0.5 * windowWidth);
-            int winMin = winMax - Convert.ToInt32(windowWidth);
-
-            int range = winMax - winMin;
-            if (range < 1) range = 1;
-            double factor = 255.0 / range;
-
-            for (int i = 0; i < 65536; ++i)
-            {
-                if (i <= winMin)
-                    lut16[i] = 0;
-                else if (i >= winMax)
-                    lut16[i] = 255;
-                else
-                {
-                    lut16[i] = (byte)((i - winMin) * factor);
-                }
-            }
-
-            List<byte> list = new List<byte>();
-
-            foreach (var pixel in imageData)
-            {
-                list.Add(lut16[pixel]);
-            }
-
-            var buffer8Bit = list.ToArray();
-
-            return BitmapSource.Create(width, height,
-                    300, 300, PixelFormats.Gray8, BitmapPalettes.Gray256,
-                    buffer8Bit, width);
-        }
+        
 
     }
 }
