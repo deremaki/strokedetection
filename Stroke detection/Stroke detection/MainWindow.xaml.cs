@@ -15,12 +15,17 @@ namespace Stroke_detection
     {
         private DicomDecoder dd;
 
-        private ushort[] FileData { get; set; }
+        private BitmapSource Bitmap
+        {
+            get { return Layers[(int) LayerSlider.Value]; }
+        }
+
+        private BitmapSource[] Layers;
 
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = this;
+            DataContext = this;
 
             dd = new DicomDecoder();
         }
@@ -28,16 +33,34 @@ namespace Stroke_detection
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+            ofd.Filter = "DICOM files (*.dcm)|*.dcm";
             if (ofd.ShowDialog() == true)
             {
-                if (ofd.FileName.Length > 0)
+                List<BitmapSource> list = new List<BitmapSource>();
+
+                foreach (var filename in ofd.FileNames)
                 {
-                    ImageBox.Source = ReadDicomFile(ofd.FileName, ofd.SafeFileName);
+                    if (!filename.EndsWith(".dcm"))
+                    {
+                        MessageBox.Show("One of the files is not a dicom file");
+                        return;
+                    }
+                    list.Add(ReadDicomFile(filename));
                 }
+
+                Layers = list.ToArray();
+
+                LayerSlider.Minimum = 0;
+                LayerSlider.Maximum = list.Count - 1;
+                LayerSlider.Value = 0;
+                LayerSlider.IsEnabled = true;
+
+                ImageBox.Source = Layers[(int)LayerSlider.Value];
             }
         }
 
-        private BitmapSource ReadDicomFile(string fileName, string fileNameOnly)
+        private BitmapSource ReadDicomFile(string fileName)
         {
             dd.DicomFileName = fileName;
 
@@ -104,7 +127,17 @@ namespace Stroke_detection
             return null;
         }
 
-        
+        private void IMethodButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ImageBox.Source == null)
+                return;
 
+            
+        }
+
+        private void LayerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ImageBox.Source = Layers[(int)LayerSlider.Value];
+        }
     }
 }
