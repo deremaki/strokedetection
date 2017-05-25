@@ -19,11 +19,22 @@ namespace Stroke_detection
     /// </summary>
     public partial class BitmapPreview : Window
     {
+        public bool Replace { get; set; }
+        public Visibility ShowReplace { get; set; }
+
         public BitmapPreview(BitmapSource bmp)
         {
             InitializeComponent();
+            DataContext = this;
 
+            Replace = false;
             ImageBox.Source = bmp;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Replace = true;
+            this.Close();
         }
     }
 }

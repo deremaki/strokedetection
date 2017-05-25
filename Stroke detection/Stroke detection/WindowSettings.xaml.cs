@@ -21,6 +21,7 @@ namespace Stroke_detection
     {
         public int WindowMin { get; set; }
         public int WindowMax { get; set; }
+        public bool Replace { get; set; }
 
         public WindowSettings(int wmin, int wmax)
         {

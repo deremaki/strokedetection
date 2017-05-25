@@ -25,6 +25,7 @@
         <TextBox Text="{Binding WindowMin}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row ="1" Grid.Column="1" Width="150"></TextBox>
         <Label Content="Window maximal:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row ="2" Grid.Column="1"></Label>
         <TextBox Text="{Binding WindowMax}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row ="3" Grid.Column="1" Width="150"></TextBox>
+        <CheckBox Content="Replace?" IsChecked="{Binding Replace}"  HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="1"></CheckBox>
         <Button Content="OK" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row ="4" Grid.Column="1" Click="Button_Click" Width ="50"></Button>
     </Grid>
 </Window>

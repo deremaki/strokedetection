@@ -9,7 +9,9 @@
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Image x:Name="ImageBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Button Content="Replace image" Visibility="{Binding ShowReplace}" Grid.Row="1" Height ="20" Width="100" Click="Button_Click"></Button>
     </Grid>
 </Window>

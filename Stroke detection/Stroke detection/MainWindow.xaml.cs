@@ -81,8 +81,27 @@ namespace Stroke_detection
 
             int newWinMin = windowSettings.WindowMin;
             int newWinMax = windowSettings.WindowMax;
+            bool replace = windowSettings.Replace;
 
-            new BitmapPreview(ReadDicomFile(currentBitmapInfo.Filename, newWinMin, newWinMax)).Show();
+            var bitmap = ReadDicomFile(currentBitmapInfo.Filename, newWinMin, newWinMax);
+
+            var bitmapPreview = new BitmapPreview(bitmap);
+            if (replace)
+            {
+                bitmapPreview.ShowReplace = Visibility.Visible;
+                bitmapPreview.ShowDialog();
+                if(bitmapPreview.Replace)
+                {
+                    Layers[(int)LayerSlider.Value].Bitmap = bitmap;
+                    Layers[(int)LayerSlider.Value].WindowMin = newWinMin;
+                    Layers[(int)LayerSlider.Value].WindowMax = newWinMax;
+                }
+            }
+            else
+            {
+                bitmapPreview.ShowReplace = Visibility.Collapsed;
+                bitmapPreview.Show();
+            }
         }
 
         private void LayerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
