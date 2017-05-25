@@ -52,7 +52,8 @@ namespace Stroke_detection
                     {
                         Bitmap = ReadDicomFile(filename, out winMin, out winMax),
                         WindowMax = winMax,
-                        WindowMin = winMin
+                        WindowMin = winMin,
+                        Filename = filename
                     });
                 }
 
@@ -65,6 +66,28 @@ namespace Stroke_detection
 
                 ImageBox.Source = Layers[(int)LayerSlider.Value].Bitmap;
             }
+        }
+
+        private void WinSetsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ImageBox.Source == null)
+                return;
+
+            var currentBitmapInfo = Layers[(int)LayerSlider.Value];
+
+            //processing image
+            var windowSettings = new WindowSettings(currentBitmapInfo.WindowMin, currentBitmapInfo.WindowMax);
+            windowSettings.ShowDialog();
+
+            int newWinMin = windowSettings.WindowMin;
+            int newWinMax = windowSettings.WindowMax;
+
+            new BitmapPreview(ReadDicomFile(currentBitmapInfo.Filename, newWinMin, newWinMax)).Show();
+        }
+
+        private void LayerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ImageBox.Source = Layers[(int)LayerSlider.Value].Bitmap;
         }
 
         private BitmapSource ReadDicomFile(string fileName, out int minWin, out int maxWin)
@@ -140,19 +163,53 @@ namespace Stroke_detection
             return null;
         }
 
-        private void IMethodButton_Click(object sender, RoutedEventArgs e)
+        private BitmapSource ReadDicomFile(string fileName, int minWin, int maxWin)
         {
-            if (ImageBox.Source == null)
-                return;
+            dd.DicomFileName = fileName;
 
-            //processing image
+            List<ushort> pixels16 = new List<ushort>();
+            int imageWidth;
+            int imageHeight;
+            int bitDepth;
+            int samplesPerPixel;
 
-            new BitmapPreview(Layers[(int)LayerSlider.Value].Bitmap).Show();
-        }
+            TypeOfDicomFile typeOfDicomFile = dd.typeofDicomFile;
 
-        private void LayerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            ImageBox.Source = Layers[(int)LayerSlider.Value].Bitmap;
+            if (typeOfDicomFile == TypeOfDicomFile.Dicom3File || typeOfDicomFile == TypeOfDicomFile.DicomOldTypeFile)
+            {
+                imageWidth = dd.width;
+                imageHeight = dd.height;
+                bitDepth = dd.bitsAllocated;
+                samplesPerPixel = dd.samplesPerPixel;
+
+                if (samplesPerPixel == 1 && bitDepth == 16)
+                {
+                    pixels16.Clear();
+                    dd.GetPixels16(ref pixels16);
+
+                    return BitmapHelper.ToBitmapImage(pixels16.ToArray(), imageWidth, imageHeight, minWin, maxWin);
+                }
+
+                else
+                {
+                    MessageBox.Show("Unsupported bits per pixel number (only 16bpp supported)");
+                }
+
+            }
+            else
+            {
+                if (typeOfDicomFile == TypeOfDicomFile.DicomUnknownTransferSyntax)
+                {
+                    MessageBox.Show("Invalid dicom file");
+                }
+                else
+                {
+                    MessageBox.Show("Invalid file");
+                }
+
+                return null;
+            }
+            return null;
         }
     }
 }

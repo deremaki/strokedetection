@@ -1,0 +1,30 @@
+﻿<Window x:Class="Stroke_detection.WindowSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stroke_detection"
+        mc:Ignorable="d"
+        Title="Window Settings" Height="250" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="232*"/>
+            <ColumnDefinition Width="27*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Window minimal:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row ="0" Grid.Column="1"></Label>
+        <TextBox Text="{Binding WindowMin}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row ="1" Grid.Column="1" Width="150"></TextBox>
+        <Label Content="Window maximal:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row ="2" Grid.Column="1"></Label>
+        <TextBox Text="{Binding WindowMax}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row ="3" Grid.Column="1" Width="150"></TextBox>
+        <Button Content="OK" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row ="4" Grid.Column="1" Click="Button_Click" Width ="50"></Button>
+    </Grid>
+</Window>

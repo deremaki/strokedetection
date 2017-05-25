@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stroke_detection"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Acute Stroke Detection" Height="350" Width="525">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="26*"/>
@@ -13,19 +13,23 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="36*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Image x:Name="ImageBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="2" >
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="40*"/>
+                <RowDefinition Height="15*"/>
                 <RowDefinition Height="40*"/>
+                <RowDefinition Height="15*"/>
                 <RowDefinition Height="40*"/>
                 <RowDefinition Height="170*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="OpenButton" Content="Open" HorizontalAlignment="Center" Height="25"  VerticalAlignment="Center" Width="100" Click="OpenButton_Click" Grid.Row="1"/>
-            <Button x:Name="IMethodButton" Content="1st method" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="100" Grid.Row="2" Click="IMethodButton_Click"/>
+            <Button x:Name="OpenButton" Content="Open" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="OpenButton_Click" Grid.Row="1"/>
+            <Button x:Name="WinSetsButton" Content="Window Settings" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Click="WinSetsButton_Click"/>
         </Grid>
         <Slider x:Name="LayerSlider" IsEnabled="False"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="LayerSlider_ValueChanged"/>
     </Grid>
