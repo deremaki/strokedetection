@@ -7,13 +7,10 @@ namespace Stroke_detection
 {
     public static class BitmapHelper
     {
-        public static BitmapSource ToBitmapImage(ushort[] imageData, int width, int height, double windowWidth,
-            double windowCentre)
+        public static BitmapSource ToBitmapImage(ushort[] imageData, int width, int height, int winMin,
+            int winMax)
         {
             byte[] lut16 = new byte[65536];
-
-            int winMax = Convert.ToInt32(windowCentre + 0.5 * windowWidth);
-            int winMin = winMax - Convert.ToInt32(windowWidth);
 
             int range = winMax - winMin;
             if (range < 1) range = 1;

@@ -17,10 +17,10 @@ namespace Stroke_detection
 
         private BitmapSource Bitmap
         {
-            get { return Layers[(int) LayerSlider.Value]; }
+            get { return Layers[(int)LayerSlider.Value].Bitmap; }
         }
 
-        private BitmapSource[] Layers;
+        private BitmapInfo[] Layers;
 
         public MainWindow()
         {
@@ -37,7 +37,7 @@ namespace Stroke_detection
             ofd.Filter = "DICOM files (*.dcm)|*.dcm";
             if (ofd.ShowDialog() == true)
             {
-                List<BitmapSource> list = new List<BitmapSource>();
+                List<BitmapInfo> list = new List<BitmapInfo>();
 
                 foreach (var filename in ofd.FileNames)
                 {
@@ -46,7 +46,14 @@ namespace Stroke_detection
                         MessageBox.Show("One of the files is not a dicom file");
                         return;
                     }
-                    list.Add(ReadDicomFile(filename));
+                    int winMin;
+                    int winMax;
+                    list.Add(new BitmapInfo()
+                    {
+                        Bitmap = ReadDicomFile(filename, out winMin, out winMax),
+                        WindowMax = winMax,
+                        WindowMin = winMin
+                    });
                 }
 
                 Layers = list.ToArray();
@@ -56,11 +63,11 @@ namespace Stroke_detection
                 LayerSlider.Value = 0;
                 LayerSlider.IsEnabled = true;
 
-                ImageBox.Source = Layers[(int)LayerSlider.Value];
+                ImageBox.Source = Layers[(int)LayerSlider.Value].Bitmap;
             }
         }
 
-        private BitmapSource ReadDicomFile(string fileName)
+        private BitmapSource ReadDicomFile(string fileName, out int minWin, out int maxWin)
         {
             dd.DicomFileName = fileName;
 
@@ -71,6 +78,9 @@ namespace Stroke_detection
             int samplesPerPixel;
             double winCentre;
             double winWidth;
+
+            maxWin = 0;
+            minWin = 0;
 
             TypeOfDicomFile typeOfDicomFile = dd.typeofDicomFile;
 
@@ -102,7 +112,10 @@ namespace Stroke_detection
                         winCentre = (maxPixelValue + minPixelValue) / 2;
                     }
 
-                    return BitmapHelper.ToBitmapImage(pixels16.ToArray(), imageWidth, imageHeight, winWidth, winCentre);
+                    maxWin = Convert.ToInt32(winCentre + 0.5 * winWidth);
+                    minWin = maxWin - Convert.ToInt32(winWidth);
+
+                    return BitmapHelper.ToBitmapImage(pixels16.ToArray(), imageWidth, imageHeight, minWin, maxWin);
                 }
 
                 else
@@ -131,15 +144,15 @@ namespace Stroke_detection
         {
             if (ImageBox.Source == null)
                 return;
-            
+
             //processing image
 
-            new BitmapPreview(Layers[(int)LayerSlider.Value]).Show();
+            new BitmapPreview(Layers[(int)LayerSlider.Value].Bitmap).Show();
         }
 
         private void LayerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ImageBox.Source = Layers[(int)LayerSlider.Value];
+            ImageBox.Source = Layers[(int)LayerSlider.Value].Bitmap;
         }
     }
 }
