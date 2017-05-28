@@ -59,6 +59,7 @@
     <Compile Include="Processing\Bitmap\FilterMethods\GaussFilter.cs" />
     <Compile Include="Processing\Bitmap\IProcBitmap.cs" />
     <Compile Include="Processing\Bitmap\LUTMethods\Histogram.cs" />
+    <Compile Include="Processing\Bitmap\LUTMethods\HistogramEqualization.cs" />
     <Compile Include="Processing\Bitmap\LUTMethods\LUTProcess.cs" />
     <Compile Include="WindowSettings.xaml.cs">
       <DependentUpon>WindowSettings.xaml</DependentUpon>
