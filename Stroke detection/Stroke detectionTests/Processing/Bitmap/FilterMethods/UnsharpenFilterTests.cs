@@ -20,7 +20,7 @@ namespace Stroke_detection.Processing.Bitmap.FilterMethods.Tests
             Assert.IsNull(test.Unsharpen(null, new int[1, 1]));
             Assert.IsNull(test.Unsharpen(new int[1, 2], new int[1, 1]));
             Assert.IsNull(test.Unsharpen(new int[3, 1], new int[1, 1]));
-            Assert.IsNotNull(test.Unsharpen(new int[1000, 1000], new int[1000, 1000]));
+            Assert.IsNotNull(test.Unsharpen(new int[1000, 10000], new int[1000, 10000]));
         }
     }
 }

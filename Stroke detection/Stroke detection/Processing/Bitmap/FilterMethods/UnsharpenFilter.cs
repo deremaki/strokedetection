@@ -50,7 +50,7 @@ namespace Stroke_detection.Processing.Bitmap.FilterMethods
         }
 
         /// <summary>
-        /// Usharpen the values from base values and smoothed values;
+        /// Usharpen the values from base values and smoothed values. Operates on int.
         /// </summary>
         /// <param name="baseValues">int[,] array of base values</param>
         /// <param name="smoothedValues">int[,] array of smoothed values</param>

@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Processing\Bitmap\FilterMethods\BitmapFilterTests.cs" />
     <Compile Include="Processing\Bitmap\FilterMethods\UnsharpenFilterTests.cs" />
+    <Compile Include="Processing\Bitmap\LUTMethods\HistogramTests.cs" />
+    <Compile Include="Processing\Bitmap\LUTMethods\LUTProcessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
