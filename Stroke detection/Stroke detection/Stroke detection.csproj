@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Processing\Bitmap\FilterMethods\BitmapFilter.cs" />
+    <Compile Include="Processing\Bitmap\FilterMethods\UnsharpenFilter.cs" />
+    <Compile Include="Processing\Bitmap\FilterMethods\GaussFilter.cs" />
+    <Compile Include="Processing\Bitmap\IProcBitmap.cs" />
     <Compile Include="WindowSettings.xaml.cs">
       <DependentUpon>WindowSettings.xaml</DependentUpon>
     </Compile>
@@ -110,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Processing\Bitmap\LUTMethods\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

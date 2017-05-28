@@ -41,5 +41,27 @@ namespace Stroke_detection
                 300, 300, PixelFormats.Gray8, BitmapPalettes.Gray256,
                 buffer8Bit, width);
         }
+
+        /// <summary>
+        /// Gets luminosity values from BitmapSource.
+        /// </summary>
+        /// <param name="bitmap">BitmapSource to be processed.</param>
+        /// <returns> int[,] array of values of bitmap</returns>
+        public static int[,] GetValuesFromBitmapSource(BitmapSource bitmap)
+        {
+            //TODO:wyciągnąć tabelę wartości w int[,]
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets BitmapSource from values.
+        /// </summary>
+        /// <param name="values">values of luminosity in in[,] array</param>
+        /// <returns>BitmapSource with set values</returns>
+        public static BitmapSource GetBitmapSourceFromValues(int[,] values)
+        {
+            //TODO: wkleić wartości int w bitmapSource
+            throw new NotImplementedException();
+        }
     }
 }
