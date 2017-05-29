@@ -26,10 +26,17 @@
                 <RowDefinition Height="40*"/>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="170*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
             <Button x:Name="OpenButton" Content="Open" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="OpenButton_Click" Grid.Row="1"/>
             <Button x:Name="WinSetsButton" Content="Window Settings" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Click="WinSetsButton_Click"/>
+            <Button x:Name="UnsharpenButton" Content="Unsharpen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="5" Click="UnsharpenButton_Click"/>
+            <Button x:Name="EqualizeButton" Content="Equalize histogram" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="7" Click="EqualizeButton_Click"/>
+            <Button x:Name="NormalizeButton" Content="Normalize histogram" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="9" Click="NormalizeButton_Click" />
         </Grid>
         <Slider x:Name="LayerSlider" IsEnabled="False"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="LayerSlider_ValueChanged"/>
     </Grid>
