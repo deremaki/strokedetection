@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -49,8 +50,25 @@ namespace Stroke_detection
         /// <returns> int[,] array of values of bitmap</returns>
         public static int[,] GetValuesFromBitmapSource(BitmapSource bitmap)
         {
-            //TODO:wyciągnąć tabelę wartości w int[,]
-            throw new NotImplementedException();
+            int height = bitmap.PixelHeight;
+            int width = bitmap.PixelWidth;
+
+            int[,] values = new int[height,width];
+
+            int stride = width * (bitmap.Format.BitsPerPixel / 8);
+            byte[] pixels = new byte[height * stride];
+
+            bitmap.CopyPixels(pixels, stride, 0);
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    values[i, j] = pixels[i * stride + j];
+                }
+            }
+
+            return values;
         }
 
         /// <summary>
