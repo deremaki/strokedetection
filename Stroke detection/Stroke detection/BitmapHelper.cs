@@ -78,8 +78,21 @@ namespace Stroke_detection
         /// <returns>BitmapSource with set values</returns>
         public static BitmapSource GetBitmapSourceFromValues(int[,] values)
         {
-            //TODO: wkleić wartości int w bitmapSource
-            throw new NotImplementedException();
+            int height = values.GetLength(1);
+            int width = values.GetLength(0);
+
+            byte[] bytes = new byte[values.GetLength(0)*values.GetLength(1)];
+
+            int i = 0;
+            foreach (var value in values)
+            {
+                bytes[i] = Convert.ToByte(value);
+                i++;
+            }
+
+            return BitmapSource.Create(width, height,
+                300, 300, PixelFormats.Gray8, BitmapPalettes.Gray256,
+                bytes, width);
         }
     }
 }
