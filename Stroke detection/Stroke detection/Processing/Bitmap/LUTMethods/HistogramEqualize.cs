@@ -11,7 +11,7 @@ namespace Stroke_detection.Processing.Bitmap.LUTMethods
     /// Class for histogram equalization.
     /// Implements IProcBitmap.
     /// </summary>
-    public class HistogramEqualization : IProcBitmap
+    public class HistogramEqualize : IProcBitmap
     {
 
         /// <summary>

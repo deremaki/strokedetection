@@ -13,6 +13,7 @@ namespace Stroke_detection
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const bool SwapAllLayers = true;
         private DicomDecoder dd;
 
         private BitmapSource Bitmap
@@ -106,43 +107,59 @@ namespace Stroke_detection
         }
         private void UnsharpenButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LayerSlider != null &&
-                Layers != null &&
-                Layers[(int)LayerSlider.Value] != null &&
-                Layers[(int)LayerSlider.Value].Bitmap != null)
-            {
-                Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.FilterMethods.UnsharpenFilter();
-                var bitmapPreview = new BitmapPreview(modify.Process(Layers[(int)LayerSlider.Value].Bitmap));
-                bitmapPreview.ShowReplace = Visibility.Collapsed;
-                bitmapPreview.WindowTitle = "Unsharpen mask";
-                bitmapPreview.Show();
-            }
+            Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.FilterMethods.UnsharpenFilter();
+#pragma warning disable CS0162 // Unreachable code detected
+            if (SwapAllLayers)
+                ModifyAllLayersAndSwap(modify);
+            else
+                ModifyLayer(modify, "Unsharpen mask");
+#pragma warning restore CS0162 // Unreachable code detected
         }
         private void EqualizeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LayerSlider != null &&
-                Layers != null &&
-                Layers[(int)LayerSlider.Value] != null &&
-                Layers[(int)LayerSlider.Value].Bitmap != null)
-            {
-                Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.LUTMethods.HistogramEqualization();
-                var bitmapPreview = new BitmapPreview(modify.Process(Layers[(int)LayerSlider.Value].Bitmap));
-                bitmapPreview.ShowReplace = Visibility.Collapsed;
-                bitmapPreview.WindowTitle = "Equalize histogram";
-                bitmapPreview.Show();
-            }
+            Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.LUTMethods.HistogramEqualize();
+#pragma warning disable CS0162 // Unreachable code detected
+            if (SwapAllLayers)
+                ModifyAllLayersAndSwap(modify);
+            else
+                ModifyLayer(modify, "Equalize histogram");
+#pragma warning restore CS0162 // Unreachable code detected
         }
         private void NormalizeButton_Click(object sender, RoutedEventArgs e)
         {
+            Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.LUTMethods.HistogramNormalize();
+#pragma warning disable CS0162 // Unreachable code detected
+            if (SwapAllLayers)
+                ModifyAllLayersAndSwap(modify);
+            else
+                ModifyLayer(modify, "Normalize histogram");
+#pragma warning restore CS0162 // Unreachable code detected
+        }
+        private void ModifyAllLayersAndSwap(Processing.Bitmap.IProcBitmap modify)
+        {
+            if (Layers != null)
+            {
+                foreach (BitmapInfo layer in Layers)
+                {
+                    if(layer!= null && layer.Bitmap != null)
+                    {
+                        layer.Bitmap = modify.Process(layer.Bitmap);
+                    }
+                }
+            }
+        }
+
+        private void ModifyLayer(Processing.Bitmap.IProcBitmap modify, string windowTitle)
+        {
+
             if (LayerSlider != null &&
                 Layers != null &&
                 Layers[(int)LayerSlider.Value] != null &&
                 Layers[(int)LayerSlider.Value].Bitmap != null)
             {
-                Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.LUTMethods.HistogramNormalize();
                 var bitmapPreview = new BitmapPreview(modify.Process(Layers[(int)LayerSlider.Value].Bitmap));
                 bitmapPreview.ShowReplace = Visibility.Collapsed;
-                bitmapPreview.WindowTitle = "Normalize histogram";
+                bitmapPreview.WindowTitle = windowTitle;
                 bitmapPreview.Show();
             }
         }

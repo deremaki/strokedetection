@@ -14,7 +14,7 @@ namespace Stroke_detection.Processing.Bitmap.LUTMethods.Tests
         [TestMethod()]
         public void CreateLUTTest()
         {
-            HistogramEqualization test = new HistogramEqualization();
+            HistogramEqualize test = new HistogramEqualize();
             Assert.IsNull(test.CreateLUT(null));
             Assert.IsNull(test.CreateLUT(new int[10]));
             Assert.IsNotNull(test.CreateLUT(new int[256]));
