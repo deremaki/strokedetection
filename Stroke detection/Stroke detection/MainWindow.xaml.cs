@@ -111,7 +111,9 @@ namespace Stroke_detection
                 Layers[(int)LayerSlider.Value].Bitmap != null)
             {
                 Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.FilterMethods.UnsharpenFilter();
-                Layers[(int)LayerSlider.Value].Bitmap = modify.Process(Layers[(int)LayerSlider.Value].Bitmap);
+                var bitmapPreview = new BitmapPreview(modify.Process(Layers[(int)LayerSlider.Value].Bitmap));
+                bitmapPreview.ShowReplace = Visibility.Collapsed;
+                bitmapPreview.Show();
             }
         }
         private void EqualizeButton_Click(object sender, RoutedEventArgs e)
@@ -122,7 +124,9 @@ namespace Stroke_detection
                 Layers[(int)LayerSlider.Value].Bitmap != null)
             {
                 Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.LUTMethods.HistogramEqualization();
-                Layers[(int)LayerSlider.Value].Bitmap = modify.Process(Layers[(int)LayerSlider.Value].Bitmap);
+                var bitmapPreview = new BitmapPreview(modify.Process(Layers[(int)LayerSlider.Value].Bitmap));
+                bitmapPreview.ShowReplace = Visibility.Collapsed;
+                bitmapPreview.Show();
             }
         }
         private void NormalizeButton_Click(object sender, RoutedEventArgs e)
@@ -133,7 +137,9 @@ namespace Stroke_detection
                 Layers[(int)LayerSlider.Value].Bitmap != null)
             {
                 Processing.Bitmap.IProcBitmap modify = new Processing.Bitmap.LUTMethods.HistogramNormalize();
-                Layers[(int)LayerSlider.Value].Bitmap = modify.Process(Layers[(int)LayerSlider.Value].Bitmap);
+                var bitmapPreview = new BitmapPreview(modify.Process(Layers[(int)LayerSlider.Value].Bitmap));
+                bitmapPreview.ShowReplace = Visibility.Collapsed;
+                bitmapPreview.Show();
             }
         }
 
