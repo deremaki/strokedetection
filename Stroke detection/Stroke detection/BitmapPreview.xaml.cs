@@ -21,12 +21,14 @@ namespace Stroke_detection
     {
         public bool Replace { get; set; }
         public Visibility ShowReplace { get; set; }
+        public string WindowTitle { get; set; }
 
         public BitmapPreview(BitmapSource bmp)
         {
             InitializeComponent();
             DataContext = this;
 
+            WindowTitle = "Preview";
             Replace = false;
             ImageBox.Source = bmp;
         }

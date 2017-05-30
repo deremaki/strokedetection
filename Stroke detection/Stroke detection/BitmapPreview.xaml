@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stroke_detection"
         mc:Ignorable="d"
-        Title="BitmapPreview" Height="400" Width="300">
+        Title="{Binding WindowTitle}" Height="400" Width="300">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"/>
