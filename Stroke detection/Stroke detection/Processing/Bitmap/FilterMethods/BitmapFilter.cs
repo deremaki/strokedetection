@@ -105,11 +105,11 @@ namespace Stroke_detection.Processing.Bitmap.FilterMethods
                         }
                         if (maskWeight == 0)
                         {
-                            outcome[x, y] = Math.Min(0, Math.Max(255, sum + 127));
+                            outcome[x, y] = Math.Max(0, Math.Min(255, sum + 127));
                         }
                         else
                         {
-                            outcome[x, y] = Math.Min(0, Math.Max(255, sum / maskWeight));
+                            outcome[x, y] = Math.Max(0, Math.Min(255, sum / maskWeight));
                         }
 
                     }

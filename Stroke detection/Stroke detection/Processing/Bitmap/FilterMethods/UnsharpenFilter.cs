@@ -29,7 +29,7 @@ namespace Stroke_detection.Processing.Bitmap.FilterMethods
         /// </summary>
         /// <param name="maskSize">Specifies size of Gauss Mask</param>
         /// <param name="scalingConstant">Specifies the scaling constant larger values provide increasing amount of sharpening</param>
-        public UnsharpenFilter(int maskSize = 3, double scalingConstant = 1.0 )
+        public UnsharpenFilter(int maskSize = 3, double scalingConstant = 1f )
         {
             smoothFilter = new GaussFilter(maskSize);
             this.scalingConstant = scalingConstant;
@@ -66,8 +66,8 @@ namespace Stroke_detection.Processing.Bitmap.FilterMethods
                 {
                     for (int y = 0; y < baseValues.GetLength(1); y++)
                     {
-                        int diff = Math.Min(0, Math.Max(255, baseValues[x, y] - smoothedValues[x, y]));
-                        outcome[x, y] = Math.Min(0, Math.Max(255, baseValues[x, y] + (int)(scalingConstant * (double)diff)));
+                        int diff = baseValues[x, y] - smoothedValues[x, y];
+                        outcome[x, y] = Math.Max(0, Math.Min(255, baseValues[x, y] + (int)(scalingConstant * (double)diff)));
                     }
                 });
             }
