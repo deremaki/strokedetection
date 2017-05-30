@@ -18,6 +18,12 @@ namespace Stroke_detection.Processing.Bitmap.LUTMethods.Tests
             Assert.IsNull(test.CreateLUT(null));
             Assert.IsNull(test.CreateLUT(new int[10]));
             Assert.IsNotNull(test.CreateLUT(new int[256]));
+            int[] hist = new int[256];
+            for(int i = 0; i<256; i++)
+            {
+                hist[i] = i;
+            }
+            Assert.IsNotNull(test.CreateLUT(hist));
         }
     }
 }

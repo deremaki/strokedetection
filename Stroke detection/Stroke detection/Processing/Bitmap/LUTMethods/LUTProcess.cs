@@ -72,7 +72,7 @@ namespace Stroke_detection.Processing.Bitmap.LUTMethods
         /// <param name="val"> int value to be clamped</param>
         private int ClampToLutRange(int val)
         {
-            return Math.Max(0, Math.Min(LUT.Length, val));
+            return Math.Max(0, Math.Min(LUT.Length - 1, val));
         }
     }
 }

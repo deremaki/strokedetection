@@ -21,11 +21,16 @@ namespace Stroke_detection.Processing.Bitmap.LUTMethods
         /// <returns></returns>
         public BitmapSource Process(BitmapSource bitmap)
         {
+            BitmapSource outcome = bitmap;
             Histogram histogram = new Histogram();
-            histogram.CreateHistogram(bitmap);
-            LUTProcess lut = new LUTProcess();
-            lut.SetLUT(CreateLUT(histogram.HistogramValues));
-            return lut.Process(bitmap);
+
+            if (histogram.CreateHistogram(bitmap))
+            {
+                LUTProcess lut = new LUTProcess();
+                lut.SetLUT(CreateLUT(histogram.HistogramValues));
+                outcome = lut.Process(bitmap);
+            }
+            return outcome;
         }
 
         /// <summary>

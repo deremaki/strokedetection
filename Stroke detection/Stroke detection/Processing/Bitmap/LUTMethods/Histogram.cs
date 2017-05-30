@@ -64,7 +64,7 @@ namespace Stroke_detection.Processing.Bitmap.LUTMethods
                 {
                     for (int y = 0; outcome && y < values.GetLength(1); y++)
                     {
-                        if (values[x, y] >= 0 && values[x, y] < 255)
+                        if (values[x, y] >= 0 && values[x, y] < 256)
                         {
                             temp[values[x, y]]++;
                         }
