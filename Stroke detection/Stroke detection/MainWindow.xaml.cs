@@ -146,8 +146,8 @@ namespace Stroke_detection
                         layer.Bitmap = modify.Process(layer.Bitmap);
                     }
                 }
+                ImageBox.Source = Layers[(int)LayerSlider.Value].Bitmap;
             }
-            ImageBox.Source = Layers[(int)LayerSlider.Value].Bitmap;
         }
 
         private void ModifyLayer(Processing.Bitmap.IProcBitmap modify, string windowTitle)
